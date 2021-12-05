@@ -1,0 +1,17 @@
+#!/usr/bin/env php
+<?php
+declare(strict_types=1);
+
+use takaram\CsvQuery\UserInterface\Command;
+
+require __DIR__ . '/../vendor/autoload.php';
+
+$containerBuilder = new DI\ContainerBuilder();
+$containerBuilder->addDefinitions(__DIR__ . '/../di_config.php');
+$container = $containerBuilder->build();
+
+$command = $container->get(Command::class);
+$args = array_slice($argv, 1);
+$exitCode = $command->execute($args);
+
+exit($exitCode);
